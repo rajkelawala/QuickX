@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickX Chatbot</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .gradient-to-br-more {
+        background: linear-gradient(45deg, #21497D, #86b9ff);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+  <!-- Navigation Bar -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-6 py-6">
+      <div class="flex items-center justify-between">
+        <div class="hidden w-full text-gray-600 md:flex md:items-center gap-4">
+          <a href="#" class="mx-2 text-2xl font-bold text-[#21497D] mr-2">QuickX</a>
+          <a href="#" class="mx-2 text-sm font-semibold text-gray-600 hover:text-gray-500">Home</a>
+          <a href="#about" class="mx-2 text-sm font-semibold text-gray-600 hover:text-gray-500">About</a>
+          <a href="#features" class="mx-2 text-sm font-semibold text-gray-600 hover:text-gray-500">Features</a>
+          <a href="#contact" class="mx-2 text-sm font-semibold text-gray-600 hover:text-gray-500">Contact</a>
+        </div>
+        <div class="order-last">
+          <button class="text-gray-600 focus:outline-none sm:mr-4 md:hidden">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="gradient-to-br-more text-white text-center pt-24 pb-12">
+    <div class="container mx-auto">
+      <h1 class="text-5xl font-bold mb-4">Welcome to QuickX</h1>
+      <p class="text-xl mb-6">Accurate Answers, Instantly</p>
+      <div class="flex justify-center gap-4">
+        <a href="login.html" class="bg-white text-indigo-600 font-bold py-3 px-6 rounded hover:bg-gray-200">Sign In</a>
+        <a href="register.html" class="bg-transparent border-2 border-white py-3 px-6 rounded hover:bg-white hover:text-indigo-600">Sign Up</a>
+      </div>
+    </div>
+  </section>
+
+ <section id="about" class="bg-white py-20">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-10">About Us</h2>
+      <p class="mx-auto text-gray-600 leading-relaxed max-w-2xl">
+        QuickX is an innovative chatbot designed to provide instant, accurate responses to complex queries. Leveraging advanced AI technologies, QuickX offers a user-friendly platform for both personal and professional use, enhancing decision-making with speed and precision.
+      </p>
+    </div>
+  </section>
+
+  <section id="features" class="py-20">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-10">Features of QuickX</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <div class="feature-item">
+          <i class="fas fa-robot text-6xl text-blue-500 mb-4"></i>
+          <h3 class="text-2xl font-semibold">Intelligent Chatbot</h3>
+          <p class="text-gray-600">Our AI-powered chatbot provides precise, timely responses to your financial queries.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-chart-line text-6xl text-blue-500 mb-4"></i>
+          <h3 class="text-2xl font-semibold">Real-Time Analysis</h3>
+          <p class="text-gray-600">Gain real-time insights into your financial data to make informed decisions.</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-users text-6xl text-blue-500 mb-4"></i>
+          <h3 class="text-2xl font-semibold">Collaborative Platform</h3>
+          <p class="text-gray-600">Easily share and discuss financial strategies with your team or advisors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="bg-white py-20">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-10">Contact Us</h2>
+      <p class="mb-8 text-gray-600">For inquiries or further information, please reach out to us:</p>
+      <div>
+        <a href="mailto:support@quickx.com" class="text-blue-600 hover:text-blue-800">support@quickx.com</a>
+        <p class="text-gray-600 mt-4">Follow us on our social media:</p>
+        <div class="mt-4">
+          <a href="#" class="mx-2 text-gray-800 hover:text-gray-600"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="mx-2 text-gray-800 hover:text-gray-600"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="mx-2 text-gray-800 hover:text-gray-600"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-sm font-semibold mb-2">QuickX © 2024</p>
+    </div>
+  </footer>
+  <script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>

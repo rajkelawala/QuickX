@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chatApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickX</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script type="importmap">
+    {
+        "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+    }
+</script>
+</head>
+<body class="bg-gray-800 text-gray-200" ng-controller="ChatController as chat">
+  <!-- Main container -->
+  <div class="min-h-screen flex items-center justify-center p-6">
+    <!-- Card -->
+    <div class="w-full max-w-2xl p-6 rounded-lg bg-gray-900 shadow-xl">
+      <!-- Welcome message -->
+      <h1 class="text-4xl font-bold mb-4">Hello, {{ chat.userName }}</h1>
+      <button ng-click="chat.logout()" class="absolute top-4 right-4 bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Logout</button>
+      <h2 class="text-xl mb-8">How can I help you today?</h2>
+
+      <!-- Suggestions -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div ng-repeat="suggestion in chat.suggestions">
+          <button ng-click="chat.useSuggestion(suggestion)"
+                  class="w-full px-4 py-2 rounded-lg text-sm shadow-sm font-medium bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {{ suggestion }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Input and Submit -->
+      <div class="flex items-center mb-4">
+        <input type="text" ng-model="chat.userInput"
+               class="flex-1 px-4 py-2 rounded-l-lg bg-gray-700 text-gray-300 focus:ring-blue-500 focus:border-blue-500" 
+               placeholder="Enter a prompt here">
+        <button ng-click="chat.submitPrompt()"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg">
+          Submit
+        </button>
+      </div>
+
+      <!-- Response -->
+      <div class="p-4 bg-gray-700 rounded-lg" ng-if="chat.responseText">
+        <p>{{ chat.responseText }}</p>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { GoogleGenerativeAI } from "@google/generative-ai";
+
+    window.runModel = async function(prompt) {
+      const API_KEY = "AIzaSyDC6p1ooz3aYpXROPOjeCbFRmRZOsxCuao"; // API KEY
+      const genAI = new GoogleGenerativeAI(API_KEY);
+
+      try {
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const result = await model.generateContent("Provide a concise, comprehensive summary in a single paragraph for the following question:" + prompt + "The answer should be precise and contain all relevant information without using any lists, bullet points or any formatting.");
+        const response = await result.response;
+        return response.text();
+      } catch (error) {
+        console.error('Failed to fetch API response:', error);
+        return "Error: " + error.message;
+      }
+    };
+  </script>
+
+  <script>
+    var username = localStorage.getItem('username');
+    angular.module('chatApp', [])
+      .controller('ChatController', ['$scope', function($scope) {
+        var chat = this;
+        chat.userName = username;
+        chat.suggestions = [
+          'What is Data Analysis ? Explain with example.',
+          'What is NoSQL Database? Give Advantages of it.',
+          'What is AI and ML ? Give Applications.'
+        ];
+        chat.userInput = '';
+        chat.responseText = '';
+
+        chat.useSuggestion = function(suggestion) {
+          chat.userInput = suggestion;
+        };
+
+        chat.submitPrompt = function() {
+          chat.responseText = "Processing..."; 
+          window.runModel(chat.userInput)
+            .then(function(text) {
+              $scope.$apply(function () {
+                chat.responseText = text;
+              });
+            })
+            .catch(function(error) {
+              $scope.$apply(function () {
+                chat.responseText = "Error: " + error.message;
+              });
+            });
+        };
+        chat.logout = function() {
+          localStorage.removeItem('username'); 
+          alert("You are Logged out !")
+          window.location.href = '/login.html'; 
+        };
+      }]);
+  </script>
+
+</body>
+</html>

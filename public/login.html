@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login</title>
+    <style>
+        .gradient-custom {
+            background: linear-gradient(45deg, #21497D, #86b9ff);
+        }
+    </style>
+</head>
+
+<body class="vh-100 gradient-custom d-flex justify-content-center align-items-center">
+    <div class="col-12 d-flex justify-content-center">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;width: 500px;">
+            <div class="card-body p-3 p-md-4">
+                <h3 class="mb-4 text-center">Login Here</h3>
+                <hr>
+                <form id="loginForm" action="http://localhost:3000/login" method="post">
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required />
+                    </div>
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required />
+                    </div>
+                    <div class="mt-3 text-center">
+                        <input class="btn btn-primary btn-lg btn-block"
+                            style="background-color:#21497D;color:white;" type="submit" value="Login" />
+                    </div>
+                </form>
+                <p class="text-center mt-3">
+                    Do not have an Account? <a href="register.html" class="text-dark">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+    
+            fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect && data.username) {
+                    localStorage.setItem('username', data.username);
+                    window.location.href = data.redirect;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to log in');
+            });
+        });
+    </script>
+</body>
+</html>
